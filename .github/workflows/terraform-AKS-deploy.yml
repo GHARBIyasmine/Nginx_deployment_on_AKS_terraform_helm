@@ -38,11 +38,11 @@ jobs:
 
     - name: Terraform Plan
       working-directory: terraform
-      run: terraform plan -out=tfplan
+      run: terraform plan 
 
     - name: Terraform Apply 
       working-directory: terraform
-      run: terraform apply tfplan -auto-approve
+      run: terraform apply -auto-approve
 
     - name: Get Terraform Outputs
       id: terraform_outputs
