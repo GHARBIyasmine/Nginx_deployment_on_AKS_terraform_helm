@@ -71,6 +71,11 @@ jobs:
       with:
         version: 'latest'
 
+    - name: Authenticate to Azure
+      uses: azure/login@v1.4.6
+      with: 
+         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Get AKS Credentials
       run: |
           az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_CLUSTER
