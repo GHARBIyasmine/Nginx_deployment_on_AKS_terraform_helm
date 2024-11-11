@@ -47,10 +47,9 @@ jobs:
     - name: Get Terraform Outputs
       id: terraform_outputs
       run: |
-        terraform output -json > terraform_outputs.json
-        cat terraform_outputs.json  # Debugging step
-        RESOURCE_GROUP=$(jq -r .resource_group_name.value terraform_outputs.json)
-        AKS_CLUSTER=$(jq -r .aks_cluster_name.value terraform_outputs.json)
+        RESOURCE_GROUP=$(jq -r '.resources[] | select(.type=="azurerm_resource_group") | .instances[0].attributes.name' terraform.tfstate)
+        AKS_CLUSTER=$(jq -r '.resources[] | select(.type=="azurerm_kubernetes_cluster") | .instances[0].attributes.name' terraform.tfstate)
+
         echo "RESOURCE_GROUP=${RESOURCE_GROUP}"
         echo "AKS_CLUSTER=${AKS_CLUSTER}"
     
