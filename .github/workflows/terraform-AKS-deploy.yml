@@ -78,7 +78,7 @@ jobs:
 
     - name: Get AKS Credentials
       run: |
-          az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_CLUSTER
+          az aks get-credentials --resource-group projectrsgrp --name akscluster
 
     - name: Install Helm
       uses: azure/setup-helm@v1
