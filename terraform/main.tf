@@ -12,6 +12,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   location            = var.location
   resource_group_name = var.resource_group_name
   dns_prefix          = "${var.name}-dns01"
+  depends_on = [azurerm_resource_group.rg]
 
   kubernetes_version = var.k8s_version
 
