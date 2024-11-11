@@ -73,7 +73,7 @@ jobs:
 
     - name: Get AKS Credentials
       run: |
-          az aks get-credentials --resource-group ${{ needs.terraform.outputs.resource_group }} --name ${{ needs.terraform.outputs.aks_cluster }}
+          az aks get-credentials --resource-group --resource-group $RESOURCE_GROUP --name $AKS_CLUSTER
 
     - name: Install Helm
       uses: azure/setup-helm@v1
