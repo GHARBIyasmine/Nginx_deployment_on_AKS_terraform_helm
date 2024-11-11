@@ -48,12 +48,15 @@ jobs:
       id: terraform_outputs
       run: |
         terraform output -json > terraform_outputs.json
-        export RESOURCE_GROUP=$(jq -r .resource_group_name.value terraform_outputs.json)
-        export AKS_CLUSTER=$(jq -r .aks_cluster_name.value terraform_outputs.json)
+        cat terraform_outputs.json  # Debugging step
+        RESOURCE_GROUP=$(jq -r .resource_group_name.value terraform_outputs.json)
+        AKS_CLUSTER=$(jq -r .aks_cluster_name.value terraform_outputs.json)
         echo "RESOURCE_GROUP=${RESOURCE_GROUP}"
         echo "AKS_CLUSTER=${AKS_CLUSTER}"
-        echo "::set-output name=resource_group::${RESOURCE_GROUP}"
-        echo "::set-output name=aks_cluster::${AKS_CLUSTER}"
+    
+        # Use environment file to set outputs instead of set-output (deprecated)
+        echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> $GITHUB_ENV
+        echo "AKS_CLUSTER=${AKS_CLUSTER}" >> $GITHUB_ENV
         
 
   helm-deployment:
