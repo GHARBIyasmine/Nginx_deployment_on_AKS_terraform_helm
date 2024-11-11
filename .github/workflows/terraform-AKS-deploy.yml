@@ -47,9 +47,8 @@ jobs:
     - name: Get Terraform Outputs
       id: terraform_outputs
       run: |
-        RESOURCE_GROUP=$(jq -r '.resources[] | select(.type=="azurerm_resource_group") | .instances[0].attributes.name' terraform.tfstate)
-        AKS_CLUSTER=$(jq -r '.resources[] | select(.type=="azurerm_kubernetes_cluster") | .instances[0].attributes.name' terraform.tfstate)
-
+        export RESOURCE_GROUP="projectrsgrp"
+        export AKS_CLUSTER="akscluster"
         echo "RESOURCE_GROUP=${RESOURCE_GROUP}"
         echo "AKS_CLUSTER=${AKS_CLUSTER}"
     
